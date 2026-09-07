@@ -34,6 +34,18 @@ public class EventController {
         return new ApiResponse("Event updated Successfully");
     }
 
+    @PutMapping("/update-capacity/{id}/{capacity}")
+    public ApiResponse updateEventCapacity(@PathVariable String id, @PathVariable int capacity){
+        for (Event event : events)
+            if (event.getId().equals(id)){
+                event.setCapacity(capacity);
+                events.set(events.indexOf(event), event);
+                return new ApiResponse("Event updated capacity Successfully");
+            }
+                
+        return new ApiResponse("Event was not found to update its capacity");
+    }    
+
     @DeleteMapping("/delete/{id}")
     public ApiResponse deleteEvent(@PathVariable String id){
         events.remove(Integer.parseInt(id));
